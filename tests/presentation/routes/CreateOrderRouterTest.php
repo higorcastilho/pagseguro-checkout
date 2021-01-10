@@ -12,7 +12,7 @@ class CreateOrderRouter {
 	}*/
 
 	public function route ($httpRequest) {
-		return 2;
+		return 10;
 	}
 }
 
@@ -38,8 +38,8 @@ class CreateOrderRouterTest extends TestCase {
 
 	public function testCreateOrderRouter (): void {
 		list($sut) = $this->makeSut();
-		$httpResponse = $sut->route(2);
+		$httpResponse = $sut->route(10);
 		
-		$this->assertSame(2, $httpResponse);
+		$this->assertSame(10, $httpResponse);
 	}	
 }
