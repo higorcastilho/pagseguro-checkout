@@ -2,18 +2,15 @@
 namespace PagseguroService\presentation\routes;
 
 class CreateOrderRouter {
-	private $num1;
-	private $num2;
 
-	public function somar () {
-		return $this->num1 + $this->num2;
-	}
+	/*private $createOrderUseCase;
 
-	public function setNum1 ($num) {
-		$this->num1 = $num;
-	}
+	public function __construct(CreateOrderUseCase $createOrderUseCase) {
+		$this->createOrderUseCase = $createOrderUseCase;
+	}*/
 
-	public function setNum2 ($num) {
-		$this->num2 = $num;
+	public function route () {
+		$input = file_get_contents("php://input");
+		return 10;		
 	}
 }

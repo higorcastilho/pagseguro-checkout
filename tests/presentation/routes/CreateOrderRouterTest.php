@@ -1,20 +1,7 @@
 <?php
 //namespace PagseguroService\presentation\routes;
-
 use PHPUnit\Framework\TestCase;
-
-class CreateOrderRouter {
-
-	/*private $createOrderUseCase;
-
-	public function __construct(CreateOrderUseCase $createOrderUseCase) {
-		$this->createOrderUseCase = $createOrderUseCase;
-	}*/
-
-	public function route ($httpRequest) {
-		return 10;
-	}
-}
+use PagseguroService\presentation\routes\CreateOrderRouter;
 
 class CreateOrderUseCaseSpy {
 
