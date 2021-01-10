@@ -16,7 +16,7 @@ class CreateOrderRouter {
 	}
 }
 
-class createOrderUseCaseSpy {
+class CreateOrderUseCaseSpy {
 
 }
 
