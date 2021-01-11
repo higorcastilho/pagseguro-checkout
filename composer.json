@@ -6,5 +6,8 @@
     	"psr-4": {
     		"PagseguroService\\": "src/"
     	}
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
     }
 }

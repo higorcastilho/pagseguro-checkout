@@ -9,8 +9,7 @@ class CreateOrderRouter {
 		$this->createOrderUseCase = $createOrderUseCase;
 	}*/
 
-	public function route () {
-		$input = file_get_contents("php://input");
-		return 10;		
+	public function route ($input) {
+		echo $input;
 	}
 }

@@ -23,10 +23,18 @@ class CreateOrderRouterTest extends TestCase {
 	
 	use MakeSut;
 
-	public function testCreateOrderRouter (): void {
-		list($sut) = $this->makeSut();
-		$httpResponse = $sut->route(10);
+	public function testEnsureCreateOrderRouterReceivesPostDataCorrectly (): void {
 		
-		$this->assertSame(10, $httpResponse);
+		list($sut) = $this->makeSut();
+		
+		$url = "http://localhost:8000/";
+
+		$client = new GuzzleHttp\Client(['base_uri' => $url]);
+
+		$response = $client->request('POST', '/pagseguro-checkout/src/main', [
+			'json' => ['foo' => 'bar']
+		]);
+
+		echo $response->getBody(true);
 	}	
 }

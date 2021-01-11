@@ -1,6 +1,8 @@
 <?php
-
-use Usecases\CreateOrderUseCase;
+require_once "../../vendor/autoload.php";
+use PagseguroService\presentation\routes\CreateOrderRouter;
+use PagseguroService\main\config\Routes;
+use PagseguroService\main\config\App;
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -18,9 +20,7 @@ if ($uri[1] !== 'pagseguro-checkout') {
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
-//$controller = new CreateOrderUseCase();
-
 $input = file_get_contents("php://input");
 
-//$controller->processRequest();
-echo $input;
+$createOrderRouter = new CreateOrderRouter();
+$createOrderRouter->route($input);
