@@ -4,6 +4,7 @@ ini_set("display_errors", "on");
 class CreateOrderRouter {
 
 	public function route ($input) {
+
 			$data = json_decode($input, true);
 			
 			if (
@@ -25,6 +26,7 @@ class CreateOrderRouter {
 				return ;
 			}
 
+			new $this->createOrderUseCase($input);
 			http_response_code(200);
 	}
 
