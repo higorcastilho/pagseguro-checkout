@@ -1,9 +1,10 @@
 <?php 
 
 class Adapter {
-	static public adapt ($router) {
-		return function () {
-			
-		}
+	static public function adapt ($router) {
+		
+		$input = file_get_contents("php://input");
+		$response = $router->route($input);
+		echo $response;
 	}
 }

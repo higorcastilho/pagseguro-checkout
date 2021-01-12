@@ -1,26 +1,12 @@
 <?php
-require_once "../../vendor/autoload.php";
-use PagseguroService\presentation\routes\CreateOrderRouter;
-use PagseguroService\main\config\Routes;
+
 use PagseguroService\main\config\App;
 
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+require_once './routes/CreateOrderRoutes.php';
+require_once './composers/CreateOrderRouterComposer.php';
+require_once './adapters/adapter.php';
 
-$uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-$uri = explode('/', $uri);
+require_once "../../vendor/autoload.php";
 
-if ($uri[1] !== 'pagseguro-checkout') {
-	header("HTTP/1.1 404 Not Found");
-	exit();
-}
-
-$requestMethod = $_SERVER["REQUEST_METHOD"];
-
-$input = file_get_contents("php://input");
-
-$createOrderRouter = new CreateOrderRouter();
-$createOrderRouter->route($input);
+$app = new App;
+echo $app->start($_SERVER["REQUEST_URI"]);
