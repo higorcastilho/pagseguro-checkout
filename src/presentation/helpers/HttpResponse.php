@@ -17,4 +17,11 @@ class HttpResponse {
 			'body' => $data
 		];
 	}
+
+	static public function serverError ($error) {
+		return [
+			'statusCode' => $error->getCode(),
+			'body' => $error->getMessage()
+		];
+	}
 }

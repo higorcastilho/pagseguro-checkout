@@ -41,6 +41,7 @@ class CreateOrderRouter {
 
 			} catch (\Exception $e) {
 
+				return HttpResponse::serverError(new \Exception("Internal server error", 500));
 			}
 
 	}
