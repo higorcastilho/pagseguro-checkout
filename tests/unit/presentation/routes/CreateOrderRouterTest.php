@@ -7,9 +7,11 @@ use PagseguroService\domain\usecases\CreateOrderUseCase;
 class CreateOrderUseCaseDouble {
 	
 	public $data;
+	public $code;
 
 	function create ($input) {
 		$this->data = $input;
+		return $this->code;
 	}
 }
 
@@ -29,6 +31,7 @@ class MakeSut {
 	static public function make() {
 
 		$createOrderUseCaseDouble = new CreateOrderUseCaseDouble();
+		$createOrderUseCaseDouble->code = 'any_code';
 		$sut = new CreateOrderRouter($createOrderUseCaseDouble); 
 
 		$json = [
@@ -75,6 +78,7 @@ class CreateOrderRouterTest extends TestCase {
 		$httpResponse = $sut->route(json_encode($json));
 
 		$this->assertEquals(200, $httpResponse['statusCode']);
+		$this->assertEquals('any_code', $httpResponse['body']);
 	}
 
 	public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
@@ -90,6 +94,7 @@ class CreateOrderRouterTest extends TestCase {
 	}
 
 	public function testShouldThrowIfAnyDependencyThrows () {
+		//x is declared to complete list method requirement. Isn't being used
 		list($x, $json) = MakeSut::make();
 
 		$createOrderUseCaseDoubleWithError = makeCreateOrderUseCaseDoubleWithError();
@@ -99,7 +104,6 @@ class CreateOrderRouterTest extends TestCase {
 		$httpResponse = $sut->route(json_encode($json));
 
 		$this->assertEquals(500, $httpResponse['statusCode']);
-		$this->assertEquals('Internal server error', $httpResponse['body']);
-		
+		$this->assertEquals('Internal server error', $httpResponse['body']);	
 	}
 }

@@ -35,9 +35,9 @@ class CreateOrderRouter {
 					return HttpResponse::badRequest(new \Exception("Missing param error", 400));
 				}
 
-				$this->createOrderUseCase->create($input);
+				$code = $this->createOrderUseCase->create($input);
 				
-				return HttpResponse::ok('data');
+				return HttpResponse::ok($code);
 
 			} catch (\Exception $e) {
 
