@@ -1,5 +1,7 @@
 <?php
+
 namespace PagseguroService\presentation\routes;
+use PagseguroService\presentation\helpers\HttpResponse;
 
 class CreateOrderRouter {
 
@@ -11,39 +13,35 @@ class CreateOrderRouter {
 
 	public function route ($input) {
 
-			$data = json_decode($input, true);
-			
-			if (
-				!$data['itemId1'] ||
-				!$data['itemAmount1'] ||
-				!$data['itemQuantity1'] ||
-				!$data['senderName'] ||
-				!$data['senderAreaCode'] ||
-				!$data['senderPhone'] ||
-				!$data['shippingAddressStreet'] ||
-				!$data['shippingAddressNumber'] ||
-				!$data['shippingAddressComplement'] ||
-				!$data['shippingAddressDistrict'] ||
-				!$data['shippingAddressPostalCode'] ||
-				!$data['shippingAddressCity'] ||
-				!$data['shippingAddressState']
-			) {
+			try {
+				$data = json_decode($input, true);
+				
+				if (
+					!$data['itemId1'] ||
+					!$data['itemAmount1'] ||
+					!$data['itemQuantity1'] ||
+					!$data['senderName'] ||
+					!$data['senderAreaCode'] ||
+					!$data['senderPhone'] ||
+					!$data['shippingAddressStreet'] ||
+					!$data['shippingAddressNumber'] ||
+					!$data['shippingAddressComplement'] ||
+					!$data['shippingAddressDistrict'] ||
+					!$data['shippingAddressPostalCode'] ||
+					!$data['shippingAddressCity'] ||
+					!$data['shippingAddressState']
+				) {
 
-				http_response_code(400);
-				$httpResponse = [
-					'statusCode' => http_response_code(),
-				];
+					return HttpResponse::badRequest(new \Exception("Missing param error", 400));
+				}
 
-				return $httpResponse;
+				$this->createOrderUseCase->create($input);
+				
+				return HttpResponse::ok('data');
+
+			} catch (\Exception $e) {
+
 			}
 
-			$this->createOrderUseCase->create($input);
-			
-			http_response_code(200);
-			$httpResponse = [
-				'statusCode' => http_response_code() 
-			];
-
-			return $httpResponse;
 	}
 }

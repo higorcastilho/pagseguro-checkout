@@ -11,7 +11,18 @@ class CreateOrderUseCaseDouble {
 	function create ($input) {
 		$this->data = $input;
 	}
+}
+
+function makeCreateOrderUseCaseDoubleWithError () {
+	
+	class CreateOrderUseCaseDoubleWithError {
+		function create () {
+			throw new Exception();
+		}
+	} 
+	return new CreateOrderUseCaseDoubleWithError();
 } 
+
 
 class MakeSut {
 	
@@ -65,7 +76,7 @@ class CreateOrderRouterTest extends TestCase {
 		$this->assertEquals(200, $httpResponse['statusCode']);
 	}
 
-	public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
+	/*public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
 		
 		list($sut, $json, $createOrderUseCaseDouble) = MakeSut::make();
 
@@ -75,5 +86,18 @@ class CreateOrderRouterTest extends TestCase {
 			json_encode($json),
 			$createOrderUseCaseDouble->data
 		);
-	}
+	}*/
+
+	/*public function testShouldThrowIfAnyDependencyThrows () {
+		list($x, $json) = MakeSut::make();
+
+		$createOrderUseCaseDoubleWithError = makeCreateOrderUseCaseDoubleWithError();
+		
+		$sut = new CreateOrderRouter($createOrderUseCaseDoubleWithError);
+		
+		$sut->route(json_encode($json));
+
+		$this->expectExceptionMessage('');
+		
+	}*/
 }
