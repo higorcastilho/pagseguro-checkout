@@ -3,13 +3,13 @@ namespace PagseguroService\presentation\routes;
 
 class CreateOrderRouter {
 
+	private $createOrderUseCase;
+	
+	public function __construct ($createOrderUseCase) {
+		$this->createOrderUseCase = $createOrderUseCase;
+	}
+
 	public function route ($input) {
-
-			$createOrderUseCase;
-
-			function __construct (CreateOrderUseCase $createOrderUseCase) {
-				$this->createOrderUseCase = $createOrderUseCase;
-			}
 
 			$data = json_decode($input, true);
 			
@@ -29,7 +29,7 @@ class CreateOrderRouter {
 				!$data['shippingAddressState']
 			) {
 				http_response_code(400);
-				return ;
+				return;
 			}
 
 			$this->createOrderUseCase->create($input);
