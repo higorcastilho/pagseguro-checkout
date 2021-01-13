@@ -23,6 +23,7 @@ class CreateOrderUseCaseTest extends TestCase {
 			];
 			$this->expectException(Exception::class);
 			$this->expectExceptionMessage("Missing param error");
+			$this->expectExceptionCode(500);
 			$sut->create(json_encode($json));
 	}
 }

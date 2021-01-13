@@ -72,15 +72,6 @@ class CreateOrderRouterTest extends TestCase {
 		$this->assertEquals('Missing param error', $httpResponse['body']);
 	}
 
-	public function testShouldReturn200IfValidParamAreProvided () {
-		list($sut, $json) = MakeSut::make();
-
-		$httpResponse = $sut->route(json_encode($json));
-
-		$this->assertEquals(200, $httpResponse['statusCode']);
-		$this->assertEquals('any_code', $httpResponse['body']);
-	}
-
 	public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
 		
 		list($sut, $json, $createOrderUseCaseDouble) = MakeSut::make();
@@ -91,6 +82,15 @@ class CreateOrderRouterTest extends TestCase {
 			json_encode($json),
 			$createOrderUseCaseDouble->data
 		);
+	}
+
+	public function testShouldReturn200IfValidParamsAreProvided () {
+		list($sut, $json) = MakeSut::make();
+
+		$httpResponse = $sut->route(json_encode($json));
+
+		$this->assertEquals(200, $httpResponse['statusCode']);
+		$this->assertEquals('any_code', $httpResponse['body']);
 	}
 
 	public function testShouldThrowIfAnyDependencyThrows () {
