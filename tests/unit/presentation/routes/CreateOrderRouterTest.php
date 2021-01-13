@@ -52,9 +52,9 @@ class CreateOrderRouterTest extends TestCase {
 		//set any of the params to an empty string to force a bad request
 		$json['senderPhone'] = '';
 
-		$response = $sut->route(json_encode($json));
+		$httpResponse = $sut->route(json_encode($json));
 
-		$this->assertEquals(400, $response);
+		$this->assertEquals(400, $httpResponse['statusCode']);
 	}
 
 	public function testShouldReturn200IfValidParamAreProvided () {
