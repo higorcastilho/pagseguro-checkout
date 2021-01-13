@@ -29,11 +29,12 @@ class CreateOrderRouter {
 				!$data['shippingAddressState']
 			) {
 				http_response_code(400);
-				return;
+				return http_response_code();
 			}
 
 			$this->createOrderUseCase->create($input);
 			http_response_code(200);
+			return http_response_code();
 	}
 
 }
