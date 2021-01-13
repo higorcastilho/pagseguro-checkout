@@ -66,6 +66,7 @@ class CreateOrderRouterTest extends TestCase {
 		$httpResponse = $sut->route(json_encode($json));
 
 		$this->assertEquals(400, $httpResponse['statusCode']);
+		$this->assertEquals('Missing param error', $httpResponse['body']);
 	}
 
 	public function testShouldReturn200IfValidParamAreProvided () {
