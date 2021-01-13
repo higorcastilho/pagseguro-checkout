@@ -103,6 +103,7 @@ class CreateOrderRouterTest extends TestCase {
 		
 		$this->expectException(Exception::class);
 		$this->expectExceptionCode(500);
+		
 		$httpResponse = $sut->route(json_encode($json));
 		$this->assertEquals(500, $httpResponse['statusCode']);
 		$this->assertEquals('Internal server error', $httpResponse['body']);
