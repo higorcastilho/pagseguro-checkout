@@ -65,15 +65,15 @@ class CreateOrderRouterTest extends TestCase {
 		$this->assertEquals(200, $response);
 	}
 
-	/*public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
+	public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
 		
 		list($sut, $json, $createOrderUseCaseDouble) = MakeSut::make();
 
-		//$sut->route(json_encode($json));
-
+		$sut->route(json_encode($json));
+		
 		$this->assertJsonStringEqualsJsonString(
 			json_encode($json),
-			json_encode($createOrderUseCaseDouble->data)
+			$createOrderUseCaseDouble->data
 		);
-	}*/
+	}
 }
