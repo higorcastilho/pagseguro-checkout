@@ -60,9 +60,9 @@ class CreateOrderRouterTest extends TestCase {
 	public function testShouldReturn200IfValidParamAreProvided () {
 		list($sut, $json) = MakeSut::make();
 
-		$response = $sut->route(json_encode($json));
+		$httpResponse = $sut->route(json_encode($json));
 
-		$this->assertEquals(200, $response);
+		$this->assertEquals(200, $httpResponse['statusCode']);
 	}
 
 	public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
@@ -70,7 +70,7 @@ class CreateOrderRouterTest extends TestCase {
 		list($sut, $json, $createOrderUseCaseDouble) = MakeSut::make();
 
 		$sut->route(json_encode($json));
-		
+
 		$this->assertJsonStringEqualsJsonString(
 			json_encode($json),
 			$createOrderUseCaseDouble->data

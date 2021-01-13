@@ -34,7 +34,11 @@ class CreateOrderRouter {
 
 			$this->createOrderUseCase->create($input);
 			http_response_code(200);
-			return http_response_code();
-	}
+			
+			$httpResponse = [
+				'statusCode' => http_response_code(), 
+			];
 
+			return $httpResponse;
+	}
 }
