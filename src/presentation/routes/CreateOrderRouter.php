@@ -1,9 +1,15 @@
 <?php
 namespace PagseguroService\presentation\routes;
-ini_set("display_errors", "on");
+
 class CreateOrderRouter {
 
 	public function route ($input) {
+
+			$createOrderUseCase;
+
+			function __construct (CreateOrderUseCase $createOrderUseCase) {
+				$this->createOrderUseCase = $createOrderUseCase;
+			}
 
 			$data = json_decode($input, true);
 			
@@ -26,7 +32,7 @@ class CreateOrderRouter {
 				return ;
 			}
 
-			new $this->createOrderUseCase($input);
+			$this->createOrderUseCase->create($input);
 			http_response_code(200);
 	}
 

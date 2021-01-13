@@ -2,12 +2,23 @@
 //namespace PagseguroService\presentation\routes;
 use PHPUnit\Framework\TestCase;
 use PagseguroService\presentation\routes\CreateOrderRouter;
+use PagseguroService\domain\usecases\CreateOrderUseCase;
+
+class CreateOrderUseCaseDouble extends CreateOrderUseCase {
+	
+	public $data;
+
+	function create ($input) {
+		$this->data = json_decode($input);
+	}
+} 
 
 class MakeSut {
 	
-	public function make() {
-		
-		$sut = new CreateOrderRouter(); 
+	static public function make() {
+
+		$createOrderUseCaseDouble = new CreateOrderUseCaseDouble();
+		$sut = new CreateOrderRouter($createOrderUseCaseDouble); 
 
 		$url = "http://localhost:8000/";
 		$client = new GuzzleHttp\Client(['base_uri' => $url]);
@@ -30,7 +41,8 @@ class MakeSut {
 		return Array(
 			$sut,
 			$client,
-			$json
+			$json,
+			$createOrderUseCaseDouble
 		);
 	}
 }
@@ -39,8 +51,8 @@ class CreateOrderRouterTest extends TestCase {
 	
 	public function testShouldReturn400IfNoParamIsProvided () {
 		
-		$makeSut = new MakeSut; 
-		list($sut, $client, $json) = $makeSut->make();
+		list($sut, $client, $json) = MakeSut::make();
+		//set any of the params to an empty string to force a bad request
 		$json['senderPhone'] = '';
 
 		$response = $client->request(
@@ -53,8 +65,7 @@ class CreateOrderRouterTest extends TestCase {
 	}
 
 	public function testShouldReturn200IfValidParamAreProvided () {
-		$makeSut = new MakeSut; 
-		list($sut, $client, $json) = $makeSut->make();
+		list($sut, $client, $json) = MakeSut::make();
 
 		$response = $client->request(
 			'POST', 
@@ -64,4 +75,18 @@ class CreateOrderRouterTest extends TestCase {
 
 		$this->assertEquals(200, $response->getStatusCode());
 	}
+
+	/*public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
+		list($sut, $client, $json, $createOrderUseCaseDouble) = MakeSut::make();
+		$client->request(
+			'POST',
+			'/pagseguro-checkout/src/main/createOrder/create',
+			['json' => $json, 'http_errors' => false]
+		);
+
+		$this->assertJsonStringEqualsJsonString(
+			json_encode($createOrderUseCaseDouble->data),
+			json_encode($json)
+		);
+	}*/
 }

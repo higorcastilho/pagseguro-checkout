@@ -1,9 +1,9 @@
 <?php
 
-namespace Usecases;
+namespace PagseguroService\domain\usecases;
 
 class CreateOrderUseCase {
-	public function index () {
-		return true;
+	public function create ($input) {
+		echo $input;
 	}	
 }

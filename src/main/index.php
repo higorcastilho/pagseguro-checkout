@@ -1,4 +1,5 @@
 <?php
+ini_set("display_errors", "on");
 
 use PagseguroService\main\config\App;
 
