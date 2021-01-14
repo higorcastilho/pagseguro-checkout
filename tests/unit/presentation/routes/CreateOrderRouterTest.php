@@ -92,6 +92,20 @@ class CreateOrderRouterTest extends TestCase {
 		$this->assertEquals(200, $httpResponse['statusCode']);
 		$this->assertEquals('any_code', $httpResponse['body']);
 	}
+	
+	/*public function testShouldThrowIfAnInvalidDependencyIsProvided () {
+		list($x, $json) = MakeSut::make();
+		$suts = array(
+			//new CreateOrderRouter(), 
+			new CreateOrderRouter({})
+		);
+
+		foreach ($suts as $sut) {
+			$response = $sut->route(json_encode($json));
+			$this->assertEquals(500, $response['statusCode']);
+			$this->assertEquals('Internal server error', $httpResponse['body']);
+		}
+	}*/
 
 	public function testShouldThrowIfAnyDependencyThrows () {
 		//x is declared to complete list method requirement. Isn't being used
@@ -105,4 +119,5 @@ class CreateOrderRouterTest extends TestCase {
 		$this->assertEquals(500, $httpResponse['statusCode']);
 		$this->assertEquals('Internal server error', $httpResponse['body']);
 	}
+
 }
