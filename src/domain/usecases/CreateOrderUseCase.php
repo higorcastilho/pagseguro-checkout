@@ -52,8 +52,6 @@ class CreateOrderUseCase {
 
 		$response = $this->pagseguroPerformRequest->perform($input);
 
-		$return = [ "data" => $response ];
-
-		return json_encode($return);
+		return $response;
 	}	
 }

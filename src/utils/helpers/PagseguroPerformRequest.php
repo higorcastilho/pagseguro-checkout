@@ -30,7 +30,7 @@ class PagseguroPerformRequest {
 		$response = curl_exec($curl);
 		curl_close($curl);
 
-		$return = [ "data" => $response ];
+		$return = [ 'data' => $response ];
 
 		return json_encode($return);
 	}
