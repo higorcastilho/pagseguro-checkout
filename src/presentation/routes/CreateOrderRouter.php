@@ -23,6 +23,7 @@ class CreateOrderRouter {
 					!$data['senderName'] ||
 					!$data['senderAreaCode'] ||
 					!$data['senderPhone'] ||
+					!$data['senderEmail'] ||
 					!$data['shippingAddressStreet'] ||
 					!$data['shippingAddressNumber'] ||
 					!$data['shippingAddressComplement'] ||

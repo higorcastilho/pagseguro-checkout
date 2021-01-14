@@ -41,6 +41,7 @@ class MakeSut {
 			'senderName' => 'any_name',
 			'senderAreaCode' => 'any_area_code',
 			'senderPhone' => 'any_phone',
+			'senderEmail' => 'any_email',
 			'shippingAddressStreet' => 'any_shipping_address',
 			'shippingAddressNumber' => 'any_address_number',
 			'shippingAddressComplement' => 'any_address_complement',
