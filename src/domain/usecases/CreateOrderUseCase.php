@@ -3,6 +3,13 @@
 namespace PagseguroService\domain\usecases;
 
 class CreateOrderUseCase {
+
+	private $pagseguroPerformRequest;
+
+	public function __construct ($pagseguroPerformRequest) {
+		$this->pagseguroPerformRequest = $pagseguroPerformRequest;
+	}
+
 	public function create ($input) {
 
 		$data = json_decode($input, true);
@@ -27,28 +34,15 @@ class CreateOrderUseCase {
 			throw new \Exception("Missing param error", 500);
 		}
 
+		//extra fields not catched on landing page
 		$data["currency"] = "BRL";
-		
 		$data["itemDescription1"] = "Whey Coffee";
-		
-		
 		$data["itemWeight1"] = 1000;
 		$data["reference"] = "REF1234";
-		
-		
-		
-		$data["senderCPF"] = "38440987803"; //
+		$data["senderCPF"] = "38440987803";
 		$data["senderBornDate"] = "12/03/1990";
-		$data["senderEmail"] = "email@sandbox.pagseguro.com.br";
 		$data["shippingType"] = 1;
-		$data["shippingAddressStreet"] = "Av. Brig. Faria Lima"; //
-		$data["shippingAddressNumber"] = "1384"; //
-		$data["shippingAddressComplement"] = "2o andar"; //
-		$data["shippingAddressDistrict"] = "Jardim Paulistano"; //
-		$data["shippingAddressPostalCode"] = "01452002"; //
-		$data["shippingAddressCity"] = "Sao Paulo"; //
-		$data["shippingAddressState"] = "SP"; //
-		$data["shippingAddressCountry"] = "BRA"; //
+		$data["shippingAddressCountry"] = "BRA";
 		$data["extraAmount"] = -0.01;
 		$data["redirectURL"] = "http://sitedocliente.com";
 		$data["notificationURL"] = "https://url_de_notificacao.com";
@@ -56,5 +50,10 @@ class CreateOrderUseCase {
 		$data["maxAge"] = 3000;
 		$data["shippingCost"] = "0.00";
 
+		$response = $this->pagseguroPerformRequest->perform($data);
+
+		$return = [ "data" => $response ];
+
+		return json_encode($return);
 	}	
 }

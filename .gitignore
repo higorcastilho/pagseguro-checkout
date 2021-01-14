@@ -3,3 +3,4 @@ vendor/
 composer.phar
 composer.lock
 .phpunit.result.cache
+src/main/config/env.php
