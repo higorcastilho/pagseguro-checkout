@@ -19,7 +19,7 @@ function makeCreateOrderUseCaseDoubleWithError () {
 	
 	class CreateOrderUseCaseDoubleWithError {
 		public function create () {
-			throw new \Exception('Internal server error', 500);
+			throw new \Exception('', 500);
 		}
 	} 
 	return new CreateOrderUseCaseDoubleWithError();
@@ -100,9 +100,6 @@ class CreateOrderRouterTest extends TestCase {
 		$createOrderUseCaseDoubleWithError = makeCreateOrderUseCaseDoubleWithError();
 		
 		$sut = new CreateOrderRouter($createOrderUseCaseDoubleWithError);
-		
-		$this->expectException(Exception::class);
-		$this->expectExceptionCode(500);
 		
 		$httpResponse = $sut->route(json_encode($json));
 		$this->assertEquals(500, $httpResponse['statusCode']);
