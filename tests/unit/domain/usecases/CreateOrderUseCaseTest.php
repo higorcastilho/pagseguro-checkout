@@ -43,10 +43,20 @@ class MakeUseCaseSut {
 	}
 }
 
+class PagseguroPerformRequestDouble {
+	
+	public $data;
+
+	public function perform ($data) {
+		$this->data = $data;
+	}
+}
+
 class CreateOrderUseCaseTest extends TestCase {
 	public function testShouldThrowIfNoParamsAreProvided () {
 
 		list($json) = MakeUseCaseSut::make();
+		//set any of the params to an empty string to force a missing param error
 		$json['senderName'] = '';
 		$pagseguroPerformRequestDouble = $this->createMock(PagseguroPerformRequest::class);
 		$sut = new CreateOrderUseCase($pagseguroPerformRequestDouble);
@@ -56,4 +66,29 @@ class CreateOrderUseCaseTest extends TestCase {
 		$this->expectExceptionCode(500);
 		$sut->create(json_encode($json));
 	}
+
+	public function testShouldCallPagseguroPerformRequestWithCorrectValues () {
+		
+		list($json) = MakeUseCaseSut::make();
+		
+		$pagseguroPerformRequestDouble = new PagseguroPerformRequestDouble();
+		
+		$sut = new CreateOrderUseCase($pagseguroPerformRequestDouble);		
+		$sut->create(json_encode($json));
+
+		$this->assertSame(json_encode($json), $pagseguroPerformRequestDouble->data);
+	}
+
+	/*public function testShouldCallPagseguroPerformRequestWithCorrectValues () {
+		
+		list($json) = MakeUseCaseSut::make();
+		
+		$pagseguroPerformRequestDouble = $this->createMock(PagseguroPerformRequest::class);
+		$pagseguroPerformRequestDouble->method('perform')->will($this->returnArgument(0));
+		
+		$sut = new CreateOrderUseCase($pagseguroPerformRequestDouble);		
+		$sut->create(json_encode($json));
+
+		$this->assertSame(json_encode($json), $pagseguroPerformRequestDouble->perform(json_encode($json)));
+	}*/
 }

@@ -50,7 +50,7 @@ class CreateOrderUseCase {
 		$data["maxAge"] = 3000;
 		$data["shippingCost"] = "0.00";
 
-		$response = $this->pagseguroPerformRequest->perform($data);
+		$response = $this->pagseguroPerformRequest->perform($input);
 
 		$return = [ "data" => $response ];
 
