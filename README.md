@@ -1,4 +1,4 @@
-# pagseguro-checkout-service
+# pagseguro-checkout
 
 <p align="center">
   <a href="#gear-running-locally">Running</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
