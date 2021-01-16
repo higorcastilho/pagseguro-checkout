@@ -87,7 +87,7 @@ class CreateOrderRouterIntegrationTest extends TestCase {
 
 		$data = json_decode($response->getBody(), true);
 
-		$codeIsValid = preg_match('/\w{32}/', $data['body']['data']);
+		$codeIsValid = preg_match('/\w{32}/', $data['body']['code']);
 
 		$this->assertEquals(200, $data['statusCode']);	
 		$this->assertTrue(boolval($codeIsValid));	

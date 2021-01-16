@@ -69,7 +69,7 @@ class CreateOrderUseCaseUnitTest extends TestCase {
 		$pagseguroPerformRequestDouble->expects($this->any())->method('perform')->with($this->equalTo(json_encode($json)));	
 		$response = $sut->create(json_encode($json));
 		
-		$this->assertEquals($data, $response['data']);
+		$this->assertEquals($data, $response['code']);
 	}
 
 	public function testShouldThrowIfAnyDependencyThrows () {

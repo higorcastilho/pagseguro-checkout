@@ -50,12 +50,16 @@ class CreateOrderUseCase {
 		$data["maxAge"] = 3000;
 		$data["shippingCost"] = "0.00";
 
-		$response = $this->pagseguroPerformRequest->perform($input);
+		$response = $this->pagseguroPerformRequest->perform(json_encode($data));
 
 		preg_match('/\w{32}/', $response, $matches);
+
+		if (sizeof($matches) < 1) {
+			throw new \Exception("Response has no code provided by Pagseguro API", 500);
+		}
+
 		$code = $matches['0'];
-		
-		$return = [ 'data' => $code ];
+		$return = [ 'code' => $code ];
 
 		return $return;
 	}	
