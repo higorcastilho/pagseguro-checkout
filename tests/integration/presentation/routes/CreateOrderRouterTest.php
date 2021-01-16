@@ -15,7 +15,7 @@ class CreateOrderUseCaseDoubleIntegration {
 
 class MakeRouterSutIntegrationTest {
 	
-	static public function make() {
+	static public function make () {
 
 		$createOrderUseCaseDoubleIntegration = new CreateOrderUseCaseDoubleIntegration();
 		$sut = new CreateOrderRouter($createOrderUseCaseDoubleIntegration); 

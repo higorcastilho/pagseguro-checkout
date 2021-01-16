@@ -52,6 +52,11 @@ class CreateOrderUseCase {
 
 		$response = $this->pagseguroPerformRequest->perform($input);
 
-		return $response;
+		preg_match('/\w{32}/', $response, $matches);
+		$code = $matches['0'];
+		
+		$return = [ 'data' => $code ];
+
+		return $return;
 	}	
 }

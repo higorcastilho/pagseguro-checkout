@@ -17,7 +17,8 @@ class PagseguroPerformRequest {
 	public function perform ($input) {
 		$data = json_decode($input, true);
 
-		if (!$this->url_pagseguro || !$this->email_pagseguro || $this->token_pagseguro) {
+		if (!$this->url_pagseguro || !$this->email_pagseguro || !$this->token_pagseguro) {
+
 			throw new \Exception("Missing constructor param inside PagseguroPerformRequest helper class", "500");
 		}
 
@@ -34,9 +35,6 @@ class PagseguroPerformRequest {
 		$response = curl_exec($curl);
 		curl_close($curl);
 
-		$return = [ 'data' => $response ];
-
-		return json_encode($return);
+		return json_encode($response);
 	}
-
 }

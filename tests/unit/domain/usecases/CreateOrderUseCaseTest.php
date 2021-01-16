@@ -58,30 +58,18 @@ class CreateOrderUseCaseUnitTest extends TestCase {
 		$sut->create(json_encode($json));
 	}
 
-	public function testShouldCallPagseguroPerformRequestWithCorrectValues () {
-		
-		list($json) = MakeUseCaseSutUnitTest::make();
-		$pagseguroPerformRequestDouble = $this->createMock(PagseguroPerformRequest::class);
-		$sut = new CreateOrderUseCase($pagseguroPerformRequestDouble);		
-		
-		$pagseguroPerformRequestDouble->expects($this->any())->method('perform')->with($this->equalTo(json_encode($json)));
-		$response = $sut->create(json_encode($json));
-		//to avoid displaying console warning
-		$this->assertSame(1, 1);
-	}
-
-	public function testShouldReturnAObjectStringContaingingTheRequestedCode () {
+	public function testShouldReturnAObjectStringContaingingTheRequestedCodeIfCorrectValuesAreProvided () {
 		
 		list($json) = MakeUseCaseSutUnitTest::make();
 		$pagseguroPerformRequestDouble = $this->createMock(PagseguroPerformRequest::class);
 		$sut = new CreateOrderUseCase($pagseguroPerformRequestDouble);		
 	
-		$data = ['data' => 'any_code'];
-		$pagseguroPerformRequestDouble->method('perform')->willReturn(json_encode($data));
-		
+		$data = 'any_code_with_32_characters_0000';
+		$pagseguroPerformRequestDouble->method('perform')->willReturn($data);
+		$pagseguroPerformRequestDouble->expects($this->any())->method('perform')->with($this->equalTo(json_encode($json)));	
 		$response = $sut->create(json_encode($json));
 		
-		$this->assertEquals(json_encode($data), $response);
+		$this->assertEquals($data, $response['data']);
 	}
 
 	public function testShouldThrowIfAnyDependencyThrows () {
