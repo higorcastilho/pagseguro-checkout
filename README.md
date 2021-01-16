@@ -9,7 +9,7 @@
 
 - Clone this repository and move it to your xampp server.
 
-- Get into the project folder and run this on terminal:
+- Get into the project folder and run this command on terminal:
 ```
 php -S 127.0.0.1:8000 -t src/main
 ```
