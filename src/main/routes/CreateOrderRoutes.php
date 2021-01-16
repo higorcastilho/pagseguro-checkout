@@ -5,6 +5,7 @@ require_once(__DIR__ . '/../adapters/adapter.php');
 
 class CreateOrderRoutes {
 	public function create () {
-		return Adapter::adapt(CreateOrderRouterComposer::compose());
+		$response = Adapter::adapt(CreateOrderRouterComposer::compose());
+		echo json_encode($response);
 	}
 }

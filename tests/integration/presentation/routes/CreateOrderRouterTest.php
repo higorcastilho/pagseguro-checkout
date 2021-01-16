@@ -1,10 +1,10 @@
 <?php
 //namespace PagseguroService\presentation\routes;
-/*use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase;
 use PagseguroService\presentation\routes\CreateOrderRouter;
 use PagseguroService\domain\usecases\CreateOrderUseCase;
 
-class CreateOrderUseCaseDouble {
+class CreateOrderUseCaseDoubleIntegration {
 	
 	public $data;
 
@@ -13,12 +13,12 @@ class CreateOrderUseCaseDouble {
 	}
 } 
 
-class MakeSut {
+class MakeSutIntegration {
 	
 	static public function make() {
 
-		$createOrderUseCaseDouble = new CreateOrderUseCaseDouble();
-		$sut = new CreateOrderRouter($createOrderUseCaseDouble); 
+		$createOrderUseCaseDoubleIntegration = new CreateOrderUseCaseDoubleIntegration();
+		$sut = new CreateOrderRouter($createOrderUseCaseDoubleIntegration); 
 
 		$url = "http://localhost:8000/";
 		$client = new GuzzleHttp\Client(['base_uri' => $url]);
@@ -42,16 +42,16 @@ class MakeSut {
 			$sut,
 			$client,
 			$json,
-			$createOrderUseCaseDouble
+			$createOrderUseCaseDoubleIntegration
 		);
 	}
 }
 
-class CreateOrderRouterTest extends TestCase {
+class CreateOrderRouterIntegration extends TestCase {
 	
 	public function testShouldReturn400IfNoParamIsProvided () {
 		
-		list($sut, $client, $json) = MakeSut::make();
+		list($sut, $client, $json) = MakeSutIntegration::make();
 		//set any of the params to an empty string to force a bad request
 		$json['senderPhone'] = '';
 
@@ -61,11 +61,13 @@ class CreateOrderRouterTest extends TestCase {
 			['json' => $json, 'http_errors' => false ]
 		);	
 
-		$this->assertEquals(400, $response->getStatusCode());
+		$data = $response->getBody();
+		echo $data;
+		//$this->assertEquals(400, $response->getStatusCode());
 	}
 
-	public function testShouldReturn200IfValidParamAreProvided () {
-		list($sut, $client, $json) = MakeSut::make();
+	/*public function testShouldReturn200IfValidParamAreProvided () {
+		list($sut, $client, $json) = MakeSutIntegration::make();
 
 		$response = $client->request(
 			'POST', 
@@ -74,17 +76,17 @@ class CreateOrderRouterTest extends TestCase {
 		);	
 
 		$this->assertEquals(200, $response->getStatusCode());
-	}
+	}*/
 
-	public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
+	/*public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
 		
-		list($sut, $client, $json, $createOrderUseCaseDouble) = MakeSut::make();
+		list($sut, $client, $json, $createOrderUseCaseDoubleIntegration) = MakeSutIntegration::make();
 
 		//$sut->route(json_encode($json));
 
 		$this->assertJsonStringEqualsJsonString(
 			json_encode($json),
-			json_encode($createOrderUseCaseDouble->data)
+			json_encode($createOrderUseCaseDoubleIntegration->data)
 		);
-	}
-}*/
+	}*/
+}

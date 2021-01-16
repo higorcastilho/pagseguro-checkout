@@ -5,6 +5,6 @@ class Adapter {
 		
 		$input = file_get_contents("php://input");
 		$response = $router->route($input);
-		echo $response;
+		return $response;
 	}
 }

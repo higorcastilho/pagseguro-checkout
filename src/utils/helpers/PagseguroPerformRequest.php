@@ -17,6 +17,10 @@ class PagseguroPerformRequest {
 	public function perform ($input) {
 		$data = json_decode($input, true);
 
+		if (!$this->url_pagseguro || !$this->email_pagseguro || $this->token_pagseguro) {
+			throw new \Exception("Missing constructor param inside PagseguroPerformRequest helper class", "500");
+		}
+
 		$buildQuery = http_build_query($data);
 		$url = $this->url_pagseguro . "/v2/checkout?email=" . $this->email_pagseguro . "&token=" . $this->token_pagseguro;
 

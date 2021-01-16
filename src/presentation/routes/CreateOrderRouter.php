@@ -32,7 +32,7 @@ class CreateOrderRouter {
 					!$data['shippingAddressCity'] ||
 					!$data['shippingAddressState']
 				) {
-
+					
 					return HttpResponse::badRequest(new \Exception("Missing param error", 400));
 				}
 
