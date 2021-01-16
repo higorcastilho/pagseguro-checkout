@@ -26,7 +26,7 @@ function makeCreateOrderUseCaseDoubleWithError () {
 } 
 
 
-class MakeSut {
+class MakeRouterSutUnitTest {
 	
 	static public function make() {
 
@@ -63,7 +63,7 @@ class CreateOrderRouterTest extends TestCase {
 	
 	public function testShouldReturn400IfNoParamIsProvided () {
 		
-		list($sut, $json) = MakeSut::make();
+		list($sut, $json) = MakeRouterSutUnitTest::make();
 		//set any of the params to an empty string to force a bad request
 		$json['senderPhone'] = '';
 
@@ -75,7 +75,7 @@ class CreateOrderRouterTest extends TestCase {
 
 	public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
 		
-		list($sut, $json, $createOrderUseCaseDouble) = MakeSut::make();
+		list($sut, $json, $createOrderUseCaseDouble) = MakeRouterSutUnitTest::make();
 
 		$sut->route(json_encode($json));
 
@@ -86,7 +86,7 @@ class CreateOrderRouterTest extends TestCase {
 	}
 
 	public function testShouldReturn200IfValidParamsAreProvided () {
-		list($sut, $json) = MakeSut::make();
+		list($sut, $json) = MakeRouterSutUnitTest::make();
 
 		$httpResponse = $sut->route(json_encode($json));
 
@@ -95,7 +95,7 @@ class CreateOrderRouterTest extends TestCase {
 	}
 	
 	/*public function testShouldThrowIfAnInvalidDependencyIsProvided () {
-		list($x, $json) = MakeSut::make();
+		list($x, $json) = MakeRouterSutUnitTest::make();
 		$suts = array(
 			//new CreateOrderRouter(), 
 			new CreateOrderRouter({})
@@ -110,7 +110,7 @@ class CreateOrderRouterTest extends TestCase {
 
 	public function testShouldThrowIfAnyDependencyThrows () {
 		//x is declared to complete list method requirement. Isn't being used
-		list($x, $json) = MakeSut::make();
+		list($x, $json) = MakeRouterSutUnitTest::make();
 
 		$createOrderUseCaseDoubleWithError = makeCreateOrderUseCaseDoubleWithError();
 		

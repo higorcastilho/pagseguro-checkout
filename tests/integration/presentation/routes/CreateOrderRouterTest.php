@@ -13,7 +13,7 @@ class CreateOrderUseCaseDoubleIntegration {
 	}
 } 
 
-class MakeSutIntegration {
+class MakeRouterSutIntegrationTest {
 	
 	static public function make() {
 
@@ -47,11 +47,11 @@ class MakeSutIntegration {
 	}
 }
 
-class CreateOrderRouterIntegration extends TestCase {
+class CreateOrderRouterIntegrationTest extends TestCase {
 	
 	public function testShouldReturn400IfNoParamIsProvided () {
 		
-		list($sut, $client, $json) = MakeSutIntegration::make();
+		list($sut, $client, $json) = MakeRouterSutIntegrationTest::make();
 		//set any of the params to an empty string to force a bad request
 		$json['senderPhone'] = '';
 
@@ -68,7 +68,7 @@ class CreateOrderRouterIntegration extends TestCase {
 	}
 
 	/*public function testShouldReturn200IfValidParamAreProvided () {
-		list($sut, $client, $json) = MakeSutIntegration::make();
+		list($sut, $client, $json) = MakeRouterSutIntegrationTest::make();
 
 		$response = $client->request(
 			'POST', 
@@ -81,7 +81,7 @@ class CreateOrderRouterIntegration extends TestCase {
 
 	/*public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
 		
-		list($sut, $client, $json, $createOrderUseCaseDoubleIntegration) = MakeSutIntegration::make();
+		list($sut, $client, $json, $createOrderUseCaseDoubleIntegration) = MakeRouterSutIntegrationTest::make();
 
 		//$sut->route(json_encode($json));
 

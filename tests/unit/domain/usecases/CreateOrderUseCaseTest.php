@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 use PagseguroService\domain\usecases\CreateOrderUseCase;
 use PagseguroService\utils\helpers\PagseguroPerformRequest;
 
-class MakeUseCaseSut {
+class MakeUseCaseSutUnitTest {
 	static public function make () {
 		$json = [
 			'itemId1' => 'any_item_id',
@@ -43,10 +43,10 @@ class MakeUseCaseSut {
 	}
 }
 
-class CreateOrderUseCaseTest extends TestCase {
+class CreateOrderUseCaseUnitTest extends TestCase {
 	public function testShouldThrowIfNoParamsAreProvided () {
 
-		list($json) = MakeUseCaseSut::make();
+		list($json) = MakeUseCaseSutUnitTest::make();
 		//set any of the params to an empty string to force a missing param error
 		$json['senderName'] = '';
 		$pagseguroPerformRequestDouble = $this->createMock(PagseguroPerformRequest::class);
@@ -60,7 +60,7 @@ class CreateOrderUseCaseTest extends TestCase {
 
 	public function testShouldCallPagseguroPerformRequestWithCorrectValues () {
 		
-		list($json) = MakeUseCaseSut::make();
+		list($json) = MakeUseCaseSutUnitTest::make();
 		$pagseguroPerformRequestDouble = $this->createMock(PagseguroPerformRequest::class);
 		$sut = new CreateOrderUseCase($pagseguroPerformRequestDouble);		
 		
@@ -72,7 +72,7 @@ class CreateOrderUseCaseTest extends TestCase {
 
 	public function testShouldReturnAObjectStringContaingingTheRequestedCode () {
 		
-		list($json) = MakeUseCaseSut::make();
+		list($json) = MakeUseCaseSutUnitTest::make();
 		$pagseguroPerformRequestDouble = $this->createMock(PagseguroPerformRequest::class);
 		$sut = new CreateOrderUseCase($pagseguroPerformRequestDouble);		
 	
@@ -85,7 +85,7 @@ class CreateOrderUseCaseTest extends TestCase {
 	}
 
 	public function testShouldThrowIfAnyDependencyThrows () {
-		list($json) = MakeSut::make();
+		list($json) = MakeUseCaseSutUnitTest::make();
 		$pagseguroPerformRequestDouble = $this->createMock(PagseguroPerformRequest::class);
 		$this->expectException(Exception::class);
 		

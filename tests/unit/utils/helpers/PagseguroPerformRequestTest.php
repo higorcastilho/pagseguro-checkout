@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use PagseguroService\utils\helpers\PagseguroPerformRequest;
 
-class MakePagseguroPerformerRequestSut {
+class MakePagseguroPerformerRequestSutUnitTest {
 	static public function make () {
 		$json = [
 			'itemId1' => 'any_item_id',
@@ -54,7 +54,7 @@ class PagseguroPerformRequestTest extends TestCase {
 		);
 
 		foreach($suts as $sut) {
-			list($json) = MakeUseCaseSut::make();
+			list($json) = MakePagseguroPerformerRequestSutUnitTest::make();
 			$this->expectException(Exception::class);
 			$this->expectExceptionMessage('Missing constructor param inside PagseguroPerformRequest helper class');
 			$this->expectExceptionCode(500);
