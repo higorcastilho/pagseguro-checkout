@@ -47,7 +47,7 @@ php -S 127.0.0.1:8000 -t src/main
 ### :test_tube: Testing
 
 - Keep server running
-- On terminal, issue:
+- On terminal and inside project folder, issue:
 ```
 vendor/bin/phpunit
 ```
