@@ -1,7 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/../composers/CreateOrderRouterComposer.php');
-require_once(__DIR__ . '/../adapters/adapter.php');
+require_once(__DIR__ . '/../adapters/Adapter.php');
 
 class CreateOrderRoutes {
 	public function create () {
