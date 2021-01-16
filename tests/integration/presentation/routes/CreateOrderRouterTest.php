@@ -92,4 +92,20 @@ class CreateOrderRouterIntegrationTest extends TestCase {
 		$this->assertEquals(200, $data['statusCode']);	
 		$this->assertTrue(boolval($codeIsValid));	
 	}
+
+	public function testShouldReturn500IfPagseguroAPIReturnDontPassCodeVerification () {
+		list($client, $json) = MakeRouterSutIntegrationTest::make();
+		$response = $client->request(
+			'POST', 
+			'/pagseguro-checkout/src/main/createOrder/create', 
+			['json' => $json, 'http_errors' => false ]
+		);
+
+		$data = json_decode($response->getBody(), true);
+
+		$codeIsValid = preg_match('/\w{32}/', $data['body']['code']);
+
+		$this->assertEquals(200, $data['statusCode']);	
+		$this->assertTrue(boolval($codeIsValid));	
+	}
 }
