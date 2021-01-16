@@ -61,9 +61,10 @@ class CreateOrderRouterIntegration extends TestCase {
 			['json' => $json, 'http_errors' => false ]
 		);	
 
-		$data = $response->getBody();
-		echo $data;
-		//$this->assertEquals(400, $response->getStatusCode());
+		$data = json_decode($response->getBody(), true);
+		
+		$this->assertEquals(400, $data['statusCode']);
+		$this->assertEquals('Missing param error', $data['body']);
 	}
 
 	/*public function testShouldReturn200IfValidParamAreProvided () {
