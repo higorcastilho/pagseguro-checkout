@@ -17,32 +17,42 @@ class MakeRouterSutIntegrationTest {
 	
 	static public function make () {
 
-		$createOrderUseCaseDoubleIntegration = new CreateOrderUseCaseDoubleIntegration();
-		$sut = new CreateOrderRouter($createOrderUseCaseDoubleIntegration); 
-
 		$url = "http://localhost:8000/";
 		$client = new GuzzleHttp\Client(['base_uri' => $url]);
 		$json = [
-			'itemId1' => 'any_item_id',
-			'itemAmount1' => 'any_amount',
-			'itemQuantity1' => 'any_quantity',
-			'senderName' => 'any_name',
-			'senderAreaCode' => 'any_area_code',
-			'senderPhone' => 'any_phone',
-			'shippingAddressStreet' => 'any_shipping_address',
-			'shippingAddressNumber' => 'any_address_number',
-			'shippingAddressComplement' => 'any_address_complement',
-			'shippingAddressDistrict' => 'any_address_district',
-			'shippingAddressPostalCode' => 'any_address_postal_code',
-			'shippingAddressCity' => 'any_address_city',
-			'shippingAddressState' => 'any_address_state'
+			'itemId1' => '0001',
+			'itemAmount1' => '100.00',
+			'itemQuantity1' => 1,
+			'senderName' => 'Jose Comprador',
+			'senderEmail' => 'email@sandbox.pagseguro.com.br',
+			'senderAreaCode' => '11',
+			'senderPhone' => '56713293',
+			'shippingAddressStreet' => 'Av. Brig. Faria Lima',
+			'shippingAddressNumber' => '1384',
+			'shippingAddressComplement' => '2o andar',
+			'shippingAddressDistrict' => 'Jardim Paulistano',
+			'shippingAddressPostalCode' => '01452002',
+			'shippingAddressCity' => 'Sao Paulo',
+			'shippingAddressState' => 'SP',
+			'currency' => 'BRL',
+			'itemDescription1' => 'Whey Coffee',
+			'itemWeight1' => 1000,
+			'reference' => 'REF1234',
+			'senderCPF' => '38440987803',
+			'senderBornDate' => '12/03/1990',
+			'shippingType' => 1,
+			'shippingAddressCountry' => 'BRA',
+			'extraAmount' => -0.01,
+			'redirectURL' => 'http://sitedocliente.com',
+			'notificationURL' => 'https://url_de_notificacao.com',
+			'maxUses' => 1,
+			'maxAge' => 3000,
+			'shippingCost' => '0.00'
 		];
 
 		return Array(
-			$sut,
 			$client,
-			$json,
-			$createOrderUseCaseDoubleIntegration
+			$json
 		);
 	}
 }
@@ -51,7 +61,7 @@ class CreateOrderRouterIntegrationTest extends TestCase {
 	
 	public function testShouldReturn400IfNoParamIsProvided () {
 		
-		list($sut, $client, $json) = MakeRouterSutIntegrationTest::make();
+		list($client, $json) = MakeRouterSutIntegrationTest::make();
 		//set any of the params to an empty string to force a bad request
 		$json['senderPhone'] = '';
 
@@ -67,27 +77,19 @@ class CreateOrderRouterIntegrationTest extends TestCase {
 		$this->assertEquals('Missing param error', $data['body']);
 	}
 
-	/*public function testShouldReturn200IfValidParamAreProvided () {
-		list($sut, $client, $json) = MakeRouterSutIntegrationTest::make();
-
+	public function testShouldReturn200AndAResponseContainingTheRequestedCode () {
+		list($client, $json) = MakeRouterSutIntegrationTest::make();
 		$response = $client->request(
 			'POST', 
 			'/pagseguro-checkout/src/main/createOrder/create', 
 			['json' => $json, 'http_errors' => false ]
-		);	
-
-		$this->assertEquals(200, $response->getStatusCode());
-	}*/
-
-	/*public function testShouldCallCreateOrderRouterUseCaseWithCorrectValues () {
-		
-		list($sut, $client, $json, $createOrderUseCaseDoubleIntegration) = MakeRouterSutIntegrationTest::make();
-
-		//$sut->route(json_encode($json));
-
-		$this->assertJsonStringEqualsJsonString(
-			json_encode($json),
-			json_encode($createOrderUseCaseDoubleIntegration->data)
 		);
-	}*/
+
+		$data = json_decode($response->getBody(), true);
+
+		$codeIsValid = preg_match('/\w{32}/', $data['body']['data']);
+
+		$this->assertEquals(200, $data['statusCode']);	
+		$this->assertTrue(boolval($codeIsValid));	
+	}
 }
