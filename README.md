@@ -7,8 +7,12 @@
 
 ### :gear: Running locally
 
-- Clone this repository and move it to your xampp server.4
-
+- Clone this repository and move it to your xampp server.
+- Issue the following:
+```
+composer install
+```
+- Copy env.example.php (it's inside src/main/config) and rename it to env.php. Fill the EMAIL_PAGSEGURO and TOKEN_PAGSEGURO variables with your correct credentials
 - Get into the project folder and run this command on terminal:
 ```
 php -S 127.0.0.1:8000 -t src/main
