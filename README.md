@@ -7,13 +7,13 @@
 
 ### :gear: Running locally
 
-- Clone this repository and move it to your xampp server.
+- Clone this repository and move it to your xampp server.4
 
 - Get into the project folder and run this command on terminal:
 ```
 php -S 127.0.0.1:8000 -t src/main
 ```
-- Open a REST API client like insomnia and make a POST request to the endpoint http://127.0.0.1:8000/pagseguro-checkout/src/main/createOrder/create 
+- Open a REST API client like insomnia and make a POST request to the endpoint http://127.0.0.1:8000/pagseguro-checkout-service/src/main/createOrder/create 
 
 - Use this JSON body: 
 ```
