@@ -1,6 +1,13 @@
 # pagseguro-checkout-service
 
-Running localy:
+<p align="center">
+  <a href="#running-locally">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#testing">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+   <a href="#running-running">Running</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#pray-acknowledgments">Acknowledgments</a>&nbsp;&nbsp;&nbsp;
+</p>
+
+### Running locally:
 
 - Clone this repository and move it to your xampp server.
 
@@ -36,3 +43,5 @@ Running localy:
   }
 }
 ```
+
+### 🧪 Testing
