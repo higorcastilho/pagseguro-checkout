@@ -38,7 +38,7 @@ php -S 127.0.0.1:8000 -t src/main
 	"shippingAddressState": "SP"
 }
 ```
-- The response sould be something like this:
+- The response should be something like this:
 ```
 {
   "statusCode": 200,
