@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use PagseguroService\utils\helpers\PagseguroPerformRequest;
+use PagseguroService\infra\repositories\PagseguroPerformRequestRepository;
 
 class MakePagseguroPerformerRequestSutUnitTest {
 	static public function make () {
@@ -42,21 +42,21 @@ class MakePagseguroPerformerRequestSutUnitTest {
 	}
 }
 
-class PagseguroPerformRequestTest extends TestCase {
+class PagseguroPerformRequestRepositoryTest extends TestCase {
 	public function testShouldThrowIfNoConstructorStringsParamsAreProvided () {
 		$suts = Array(
-			new PagseguroPerformRequest('', '', ''),
-			new PagseguroPerformRequest('url_pagseguro', '', ''),
-			new PagseguroPerformRequest('url_pagseguro', 'email_pagseguro', ''),
-			new PagseguroPerformRequest('', 'email_pagseguro', 'token_pagseguro'),
-			new PagseguroPerformRequest('', '', 'token_pagseguro'),
-			new PagseguroPerformRequest('', 'email_pagseguro', ''),
+			new PagseguroPerformRequestRepository('', '', ''),
+			new PagseguroPerformRequestRepository('url_pagseguro', '', ''),
+			new PagseguroPerformRequestRepository('url_pagseguro', 'email_pagseguro', ''),
+			new PagseguroPerformRequestRepository('', 'email_pagseguro', 'token_pagseguro'),
+			new PagseguroPerformRequestRepository('', '', 'token_pagseguro'),
+			new PagseguroPerformRequestRepository('', 'email_pagseguro', ''),
 		);
 
 		foreach($suts as $sut) {
 			list($json) = MakePagseguroPerformerRequestSutUnitTest::make();
 			$this->expectException(Exception::class);
-			$this->expectExceptionMessage('Missing constructor param inside PagseguroPerformRequest helper class');
+			$this->expectExceptionMessage('Missing constructor param inside PagseguroPerformRequestRepository helper class');
 			$this->expectExceptionCode(500);
 			$sut->perform(json_encode($json));
 		};

@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use PagseguroService\domain\usecases\CreateOrderUseCase;
-use PagseguroService\utils\helpers\PagseguroPerformRequest;
+use PagseguroService\infra\repositories\PagseguroPerformRequestRepository;
 
 class MakeUseCaseSutUnitTest {
 	static public function make () {
@@ -49,8 +49,8 @@ class CreateOrderUseCaseUnitTest extends TestCase {
 		list($json) = MakeUseCaseSutUnitTest::make();
 		//set any of the params to an empty string to force a missing param error
 		$json['senderName'] = '';
-		$pagseguroPerformRequestDouble = $this->createMock(PagseguroPerformRequest::class);
-		$sut = new CreateOrderUseCase($pagseguroPerformRequestDouble);
+		$pagseguroPerformRequestRepositoryDouble = $this->createMock(PagseguroPerformRequestRepository::class);
+		$sut = new CreateOrderUseCase($pagseguroPerformRequestRepositoryDouble);
 
 		$this->expectException(Exception::class);
 		$this->expectExceptionMessage("Missing param error");
@@ -61,12 +61,12 @@ class CreateOrderUseCaseUnitTest extends TestCase {
 	public function testShouldReturnAObjectStringContaingingTheRequestedCodeIfCorrectValuesAreProvided () {
 		
 		list($json) = MakeUseCaseSutUnitTest::make();
-		$pagseguroPerformRequestDouble = $this->createMock(PagseguroPerformRequest::class);
-		$sut = new CreateOrderUseCase($pagseguroPerformRequestDouble);		
+		$pagseguroPerformRequestRepositoryDouble = $this->createMock(PagseguroPerformRequestRepository::class);
+		$sut = new CreateOrderUseCase($pagseguroPerformRequestRepositoryDouble);		
 	
 		$data = 'any_code_with_32_characters_0000';
-		$pagseguroPerformRequestDouble->method('perform')->willReturn($data);
-		$pagseguroPerformRequestDouble->expects($this->any())->method('perform')->with($this->equalTo(json_encode($json)));	
+		$pagseguroPerformRequestRepositoryDouble->method('perform')->willReturn($data);
+		$pagseguroPerformRequestRepositoryDouble->expects($this->any())->method('perform')->with($this->equalTo(json_encode($json)));	
 		$response = $sut->create(json_encode($json));
 		
 		$this->assertEquals($data, $response['code']);
@@ -74,10 +74,10 @@ class CreateOrderUseCaseUnitTest extends TestCase {
 
 	public function testShouldThrowIfAnyDependencyThrows () {
 		list($json) = MakeUseCaseSutUnitTest::make();
-		$pagseguroPerformRequestDouble = $this->createMock(PagseguroPerformRequest::class);
+		$pagseguroPerformRequestRepositoryDouble = $this->createMock(PagseguroPerformRequestRepository::class);
 		$this->expectException(Exception::class);
 		
-		$pagseguroPerformRequestDouble->method('perform')->will($this->throwException(new Exception));
-		$pagseguroPerformRequestDouble->perform(json_encode($json));
+		$pagseguroPerformRequestRepositoryDouble->method('perform')->will($this->throwException(new Exception));
+		$pagseguroPerformRequestRepositoryDouble->perform(json_encode($json));
 	}
 }

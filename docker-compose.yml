@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  php:
+    build: .
+    container_name: pagseguro_service
+    ports:
+      - "8000:80"
+    volumes:
+      - ".:/var/www/html/"
+    command: php -S 127.0.0.1:8000 -t src/main

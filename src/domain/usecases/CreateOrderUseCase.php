@@ -4,10 +4,10 @@ namespace PagseguroService\domain\usecases;
 
 class CreateOrderUseCase {
 
-	private $pagseguroPerformRequest;
+	private $pagseguroPerformRequestRepository;
 
-	public function __construct ($pagseguroPerformRequest) {
-		$this->pagseguroPerformRequest = $pagseguroPerformRequest;
+	public function __construct ($pagseguroPerformRequestRepository) {
+		$this->pagseguroPerformRequestRepository = $pagseguroPerformRequestRepository;
 	}
 
 	public function create ($input) {
@@ -50,7 +50,7 @@ class CreateOrderUseCase {
 		$data["maxAge"] = 3000;
 		$data["shippingCost"] = "0.00";
 
-		$response = $this->pagseguroPerformRequest->perform(json_encode($data));
+		$response = $this->pagseguroPerformRequestRepository->perform(json_encode($data));
 
 		preg_match('/\w{32}/', $response, $matches);
 

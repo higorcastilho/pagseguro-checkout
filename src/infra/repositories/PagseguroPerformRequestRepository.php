@@ -1,8 +1,8 @@
 <?php
 
-namespace PagseguroService\utils\helpers;
+namespace PagseguroService\infra\repositories;
 
-class PagseguroPerformRequest {
+class PagseguroPerformRequestRepository {
 	
 	private $url_pagseguro;
 	private $email_pagseguro;
