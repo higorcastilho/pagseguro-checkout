@@ -50,7 +50,7 @@ php -S 127.0.0.1:8000 -t src/main
 
 ### :test_tube: Testing
 
-- Keep the server running
+- Keep the server running at 127.0.0.1:8000
 - On terminal and inside project folder, issue:
 ```
 vendor/bin/phpunit
