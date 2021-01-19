@@ -5,6 +5,7 @@ class Adapter {
 		
 		$input = file_get_contents("php://input");
 		$response = $router->route($input);
-		return $response;
+		http_response_code($response['statusCode']);
+		return $response['body'];
 	}
 }
